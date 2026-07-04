@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Happy Birthday, Bhabhi — Neha Prajapati</title>
+
+<!-- Premium fonts: Playfair Display (headlines), Cormorant Garamond (soft accents), Poppins (UI/body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================= -->
+<!-- PERSISTENT AMBIENT BACKGROUND (runs forever)   -->
+<!-- Stars, moon, fireflies, clouds, aurora, dust   -->
+<!-- ============================================= -->
+<canvas id="bg-canvas"></canvas>
+<div class="aurora"></div>
+<div class="moon" id="moon"></div>
+<div class="clouds" id="clouds"></div>
+
+<!-- Container where JS spawns floating hearts / petals / confetti / balloons -->
+<div id="fx-layer" aria-hidden="true"></div>
+
+<!-- ============================================= -->
+<!-- SCENE 0 — OPENING (dark reveal + gift box)     -->
+<!-- ============================================= -->
+<section id="scene-opening" class="scene scene-opening active">
+  <p class="opening-line" id="opening-line">Someone has prepared a very special surprise just for you&hellip;</p>
+
+  <div class="gift-wrap" id="gift-wrap">
+    <p class="gift-prompt" id="gift-prompt">🎁 Tap the Gift to Begin 🎁</p>
+
+    <button class="gift-box" id="gift-box" aria-label="Open your birthday surprise">
+      <span class="gift-glow"></span>
+      <span class="gift-lid"></span>
+      <span class="gift-base"></span>
+      <span class="gift-ribbon-v"></span>
+      <span class="gift-ribbon-h"></span>
+      <span class="gift-bow">🎀</span>
+    </button>
+  </div>
+
+  <div class="sound-hint">🔈 Turn on your sound for the full magic</div>
+</section>
+
+<!-- ============================================= -->
+<!-- MAIN EXPERIENCE (revealed after gift opens)    -->
+<!-- ============================================= -->
+<main id="main-experience">
+
+  <!-- HERO REVEAL -->
+  <section class="scene scene-hero" id="scene-hero">
+    <div class="hero-inner">
+      <h1 class="hero-title" id="hero-title" aria-label="Happy Birthday, Bhabhi!">
+        <!-- letters injected by JS -->
+      </h1>
+      <p class="hero-name">Neha Prajapati</p>
+      <p class="hero-date">📅 5 July 2026</p>
+      <div class="scroll-cue">
+        <span>Scroll to unwrap the celebration</span>
+        <div class="scroll-cue-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WISHES TYPEWRITER -->
+  <section class="scene scene-wishes" id="scene-wishes">
+    <p class="eyebrow">A few wishes, from the heart</p>
+    <div class="wish-stage">
+      <p class="wish-line" id="wish-line">&nbsp;</p>
+    </div>
+    <div class="wish-dots" id="wish-dots"></div>
+  </section>
+
+  <!-- INTERACTIVE HUB -->
+  <section class="scene scene-hub" id="scene-hub">
+    <p class="eyebrow">Touch the celebration</p>
+    <h2 class="section-title">Choose a Little Magic</h2>
+    <div class="hub-grid">
+      <button class="hub-btn" data-goto="scene-cake">
+        <span class="hub-icon">🎂</span>
+        <span>Cut the Birthday Cake</span>
+      </button>
+      <button class="hub-btn" data-goto="scene-memory">
+        <span class="hub-icon">🎁</span>
+        <span>Open Memory Box</span>
+      </button>
+      <button class="hub-btn" data-goto="scene-balloons">
+        <span class="hub-icon">🎈</span>
+        <span>Release All Balloons</span>
+      </button>
+      <button class="hub-btn" data-goto="scene-message">
+        <span class="hub-icon">💌</span>
+        <span>Read a Special Message</span>
+      </button>
+      <button class="hub-btn" id="music-toggle-btn">
+        <span class="hub-icon">🎵</span>
+        <span id="music-toggle-label">Play Birthday Music</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- CAKE SCENE -->
+  <section class="scene scene-cake" id="scene-cake">
+    <p class="eyebrow">Make it official</p>
+    <h2 class="section-title">A Cake, Just For You</h2>
+
+    <div class="cake-stage">
+      <div class="cake" id="cake">
+        <div class="candle c1"><span class="flame"></span></div>
+        <div class="candle c2"><span class="flame"></span></div>
+        <div class="candle c3"><span class="flame"></span></div>
+        <div class="cake-tier tier-top"><span class="drip d1"></span><span class="drip d2"></span><span class="drip d3"></span></div>
+        <div class="cake-tier tier-bottom"><span class="dot dt1"></span><span class="dot dt2"></span><span class="dot dt3"></span><span class="dot dt4"></span></div>
+        <div class="cake-plate"></div>
+      </div>
+    </div>
+
+    <button class="glow-btn" id="blow-btn">🎂 Blow the Candles</button>
+    <p class="make-wish" id="make-wish">✨ Make a Beautiful Wish ✨</p>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section class="scene scene-gallery" id="scene-gallery">
+    <p class="eyebrow">Cherished moments</p>
+    <h2 class="section-title">A Little Gallery</h2>
+    <!-- Replace images easily: swap the file inside photos/ and keep the same filenames,
+         or edit the data-src attributes below. If an image is missing, a soft gradient
+         frame is shown automatically so the layout never breaks. -->
+    <div class="gallery-grid" id="gallery-grid">
+      <div class="photo-frame" data-src="photos/photo1.jpg" style="--i:0"><div class="photo-fallback">📷</div></div>
+      <div class="photo-frame" data-src="photos/photo2.jpg" style="--i:1"><div class="photo-fallback">💞</div></div>
+      <div class="photo-frame" data-src="photos/photo3.jpg" style="--i:2"><div class="photo-fallback">🌸</div></div>
+      <div class="photo-frame" data-src="photos/photo4.jpg" style="--i:3"><div class="photo-fallback">✨</div></div>
+      <div class="photo-frame" data-src="photos/photo5.jpg" style="--i:4"><div class="photo-fallback">🌺</div></div>
+      <div class="photo-frame" data-src="photos/photo6.jpg" style="--i:5"><div class="photo-fallback">🎂</div></div>
+    </div>
+  </section>
+
+  <!-- MEMORY BOX -->
+  <section class="scene scene-memory" id="scene-memory">
+    <p class="eyebrow">Sealed with love</p>
+    <h2 class="section-title">Open the Memory Box</h2>
+    <button class="glow-btn" id="memory-open-btn">🎁 Open Memory Box</button>
+    <div class="memory-strip" id="memory-strip"><!-- photos injected one by one by JS --></div>
+  </section>
+
+  <!-- BALLOON SCENE -->
+  <section class="scene scene-balloons" id="scene-balloons">
+    <p class="eyebrow">Let them go</p>
+    <h2 class="section-title">A Sky Full of Balloons</h2>
+    <div class="balloon-field" id="balloon-field"><!-- balloons injected by JS --></div>
+    <button class="glow-btn" id="release-btn">🎈 Release All Balloons</button>
+  </section>
+
+  <!-- SPECIAL MESSAGE -->
+  <section class="scene scene-message" id="scene-message">
+    <p class="eyebrow">From my heart to yours</p>
+    <div class="glass-card">
+      <p>Dear Bhabhi,</p>
+      <p>On your special day, I wish you endless happiness, good health, love, peace, prosperity, success, and beautiful memories.</p>
+      <p>May every dream in your life come true.</p>
+      <p>May every new morning bring new hope and new happiness.</p>
+      <p>Thank you for always being kind, caring, supportive, and making our family more beautiful with your smile.</p>
+      <p>May God bless you with a long, joyful, peaceful, and successful life.</p>
+      <p class="signoff">Once again,<br>Happy Birthday, Bhabhi!</p>
+    </div>
+  </section>
+
+  <!-- ENDING -->
+  <section class="scene scene-ending" id="scene-ending">
+    <h2 class="ending-title">❤️ Happy Birthday, Bhabhi ❤️</h2>
+    <p class="ending-name">Neha Prajapati</p>
+    <p class="ending-love" id="ending-love">💖 With Lots of Love 💖<br>From Your Devar Ji<br>(Kundan Prajapati)</p>
+    <button class="glow-btn replay-btn" id="replay-btn">🎉 Replay the Surprise 🎉</button>
+  </section>
+
+</main>
+
+<!-- Background music — replace this src with your own audio file any time. -->
+<audio id="bg-music" loop preload="none" src="music/birthday-piano.mp3"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
