@@ -394,7 +394,7 @@
   /* ------------------------------------------------------------- */
   const memoryOpenBtn = document.getElementById('memory-open-btn');
   const memoryStrip = document.getElementById('memory-strip');
-  const memoryPhotos = ['photos/photo1.jpg', 'photos/photo2.jpg', 'photos/photo3.jpg', 'photos/photo4.jpg', 'photos/photo5.jpg', 'photos/photo6.jpg'];
+  const memoryPhotos = ['photo1.jpg', 'photo2.jpg', 'photo3.jpg', 'photo4.jpg', 'photo5.jpg', 'photo6.jpg'];
   let memoryOpened = false;
 
   memoryOpenBtn.addEventListener('click', () => {
